@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Messages</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <script>
+	
+	function myFunction(){
+		var result = confirm("Are you sure?");
+		if(result){
+			
+		}
+	}
+
+</script>
+</head>
+<body ng-app="myApp">>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+
+<a class="navbar-brand" href="#">INBOX</a>
+<div class="navbar-collapse collapse" ">
+<ul class="nav navbar-nav navbar-right" >
+<li class="active" ><button type="button" class="btn" data-toggle="modal" data-target="#myModal2" style="margin-top:10px;">Ask Admin</button></li>
+
+</ul>
+</div>
+</div>
+</nav>
+<div style="margin-top:50px" ng-controller="myCtrl">
+ Search:<input type="text" placeholder="Search messages" ng-model="searchText"/ style:"margin-bottom:10px;"><br><br>
+<table class="table table-bordered table-responsive-md" >
+  <thead>
+        <tr>
+            <th class="pr-md-3 pr-5">
+                <input type="checkbox" class="filled-in" id="checkbox123">
+                <label for="checkbox123" class="label-table"></label>
+            </th>
+            <th>IDEA TITLE</th>
+            <th>DESCRIPTION</th>
+            <th>TIME</th>
+        </tr>
+    </thead>
+	
+<tbody>
+<tr ng-repeat="message in employees|filter:searchText">
+<th scope="row" class="pr-md-3 pr-5">
+                <input type="checkbox" class="filled-in" id="checkbox124">
+                <label for="checkbox124" class="label-table"></label>
+            </th>
+<td>{{message.name}}</td>
+    <td> {{message.description}}</td>
+	<td style="width:20%;">{{message.time}}
+	
+
+ 
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-left:70px;">Reply</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reply</h4>
+        </div>
+        <div class="modal-body">
+   <textarea rows="4" cols="75" placeholder="Type your message  here..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Send</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  </tbody>
+</table>
+	</center>
+  
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Ask Query</h4>
+        </div>
+		<form>
+		<div class="modal-body">
+   <input type = "text" placeholder="Enter Title" style="margin-left:18px;>
+        </div>
+        <div class="modal-footer">
+		
+        <div class="modal-body">
+   <textarea rows="4" cols="75" placeholder="Type your message  here..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Send</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+</td>
+	
+	 </tr>
+
+ 
+  
+        </div>
+	 <button type="button" class="btn btn-danger" style = "margin-left:10px;" id = "delete" onclick="myFunction()">Delete</button>
+		</body>
+
+	<script>
+var myApp = angular.module("myApp", []);
+myApp.controller("myCtrl", function($scope) {
+var employees=[{name:"ben",description:"water resources",time:"10:20"
+
+},
+{name:"sara",description: "water resources",time:"10:10"
+
+},
+{name:"mark",description:"water resources",time:"10:50"
+
+},
+{name:"pam",description:"water resources",time:"10:12"
+
+},
+{name:"tod",description:"water resources",time:"10:11"
+
+}
+];
+     $scope.employees = employees;
+            $scope.sortColumn = "name";
+
+ });
+</script>
+
+</body>
+</html>

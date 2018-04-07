@@ -1,0 +1,272 @@
+<link href="css/style_addproject.css" rel="stylesheet">
+<!-- 
+<?php
+  //  session_start();
+
+  // if(!isset($_SESSION['user']))
+  // {
+
+  //      echo '<script type="text/javascript">';
+  //      echo 'alert("Access Denied. Login to view this Page.");';
+  //      echo 'window.location.href = "../web pages/login.php";';
+  //      echo '</script>';
+   //  }
+
+?> -->
+
+<script type="text/javascript" src="jquery-1.2.1.pack.js"></script>
+<script type="text/javascript">
+	function lookup(inputString) {
+		if(inputString.length == 0) {
+			// Hide the suggestion box.
+			$('#suggestions').hide();
+		} else {
+			$.post("rpc.php", {queryString: ""+inputString+""}, function(data){
+				if(data.length >0) {
+					$('#suggestions').show();
+					$('#autoSuggestionsList').html(data);
+				}
+			});
+		}
+	} // lookup
+
+	function fill(thisValue) {
+		$('#Location').val(thisValue);
+		setTimeout("$('#suggestions').hide();", 200);
+	}
+</script>
+<style>
+      #map {
+        width: 100%;
+        height: 200px;
+        background-color: grey;
+      }
+    </style>
+
+<div class="container">
+  <form id="contact" action="http://hosting619.96.lt/sih/api/news.php/AddIdea" method="post">
+    <h3>Idea Details</h3>
+
+    <fieldset>
+      <input name="Title" placeholder="Project Title" type="text" tabindex="1" required autofocus>
+    </fieldset>
+
+<fieldset>
+		<select name="Category" style="width: inherit;">
+	     <option value="NULL">Choose Category</option>
+	     <option value="rainwater">Rain Water Harvesting</option>
+	     <option value="groundwater">Ground Water Harvesting</option>
+	     <option value="waterrecycle">Water Recycling</option>
+	     <option value="agriculture">Agriculture</option>
+	     <option value="river">River</option>
+    </select>
+
+	</fieldset>
+
+<fieldset>
+	<input type="url" name="Image_url" placeholder="Enter relevant img url">
+<!-- <fieldset>
+    <p style="font-weight: bold;"> Choose Eligibility criteria for the SCHEME : </p>
+    <input type="checkbox" name="children" value="children"> Children
+    <input type="checkbox" name="student" value="student"> Student
+    <input type="checkbox" name="farmer" value="farmer"> Farmer
+    <input type="checkbox" name="mother" value="mother"> Mother
+    <input type="checkbox" name="entrepreneur" value="entrepreneur"> Entrepreneur
+    <p style="font-weight: bold;"> If you have any other Eligibility criteria for the SCHEME please enter below( comma separated values) : </p>
+    <textarea> </textarea> -->
+
+    
+
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Places Searchbox</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map"></div>
+    <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH7o7Sv1iIA1iYAp9d4AjPudBhVpQxgyk&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH7o7Sv1iIA1iYAp9d4AjPudBhVpQxgyk&libraries=places&callback=initAutocomplete"
+         async defer></script>
+  
+	
+	<input type="timestamp" size="30" name="implement_time" value="" id="Location" placeholder="Implementation time(in months)" onkeyup="lookup(this.value);" onblur="fill();" style = "width:100%" name = "itime"/>
+    <input type="number" size="30" name="Cost" value="" id="Location" placeholder="Implementation Cost" onkeyup="lookup(this.value);" onblur="fill();" style = "width:100%" name = "icost"/>
+
+        <div class="suggestionsBox" id="suggestions" style="display: none;">
+         <img src="assets/upArrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
+           <div class="suggestionList" id="autoSuggestionsList">
+           &nbsp;
+           </div>
+        </div>
+</fieldset>
+
+     <fieldset>
+      <textarea name="Description" placeholder="Description" tabindex="4" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Add Idea</button>
+    </fieldset>
+
+  </form>
+</div>

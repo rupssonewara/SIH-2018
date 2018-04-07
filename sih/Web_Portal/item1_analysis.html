@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+<script>
+window.onload = function () {
+	
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	
+	title:{
+		text:"Analysis of the Image"
+	},
+	axisX:{
+		interval: 1
+	},
+	axisY2:{
+		interlacedColor: "rgba(1,77,101,.2)",
+		gridColor: "rgba(1,77,101,.1)",
+		title: "Image Tags"
+	},
+	data: [{
+		type: "bar",
+		name: "Images",
+		axisYType: "secondary",
+		color: "#014D65",
+		dataPoints: [
+			{ label: "outdoor", y: 0.9989961 },
+			{ label: "rock", y: 0.993698359 },
+			{ label: "rocky", y: 0.92541945 },
+			{ label: "mountain", y: 0.8249209 },
+			{ label: "pile", y: 0.5416771 },
+			{ label: "hillside", y: 0.190075025 }
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
